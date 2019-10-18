@@ -1,0 +1,7 @@
+{
+  id: solution.id,
+  product_id: solution.product_id,
+  product_name: solution.product.name,
+  condition_id: solution.condition_id,
+  condition_name: solution.condition.name
+}

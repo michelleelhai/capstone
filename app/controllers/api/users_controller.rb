@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+  before_action :authenticate_user, except: [:create]
   def index
     @users = User.all
     render 'index.json.jb'
@@ -18,12 +19,16 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(id: params[:id])
+    # @user = User.find_by(id: params[:id])
+    @user = current_user
     @user.username = params[:username] || @user.username
-    @user.password = params[:password] || @user.password_digest
+    if params[:password]
+      @user.password = params[:password]
+    end
+    @user.admin = params[:admin] || @user.admin
     @user.save
     if @user.save
-      render 'create.json.jb'
+      render 'show.json.jb'
     else
       render json: {errors: @user.errors.full_messages}, status: :unprocessable_entity
     end

@@ -1,0 +1,2 @@
+@solutions.map do |solution| render partial: "solution.json.jb", locals: {solution: solution}
+end

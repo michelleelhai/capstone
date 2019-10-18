@@ -1,0 +1,7 @@
+{
+  id: condition.id,
+  name: condition.name,
+  image: condition.image_url,
+  description: condition.description,
+
+}
