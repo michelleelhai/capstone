@@ -1,1 +1,7 @@
-render partial: "product.json.jb", locals: {product: @product}
+product = render partial: "product.json.jb", locals: {product: @product}
+
+product[:conditions] = @product.conditions.map do |condition|
+  render partial: "api/conditions/condition", locals: {condition: condition}
+  end
+
+product

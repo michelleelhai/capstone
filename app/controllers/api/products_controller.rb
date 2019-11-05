@@ -14,9 +14,17 @@ class Api::ProductsController < ApplicationController
       effects: params[:effects],
       image_url: params[:image_url],
       description: params[:description],
-      user_id: params[:user_id]
-    )
+      user_id: current_user.id
+      )
     if @product.save
+      if params[:condition_ids]
+        params[:condition_ids].each do |condition_id|
+          Solution.create(
+            condition_id: condition_id,
+            product_id: @product.id
+          )
+        end
+      end
       render 'show.json.jb'
     else
       render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity
@@ -30,6 +38,16 @@ class Api::ProductsController < ApplicationController
     @product.description = params[:description] || @product.description
     @product.user_id = params[:user_id] || @product.user_id
     if @product.save
+      @product.solutions.destroy_all
+
+      if params[:condition_ids]
+        params[:condition_ids].each do |condition_id|
+          Solution.create(
+            condition_id: condition_id,
+            product_id: @product.id
+          )
+        end
+      end
       render 'show.json.jb'
     else
       render json: {errors: @product.errors.full_messages}, status: :unprocessable_entity

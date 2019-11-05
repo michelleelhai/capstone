@@ -5,5 +5,4 @@
   image: product.image_url,
   description: product.description,
   user_id: product.user_id
-
 }

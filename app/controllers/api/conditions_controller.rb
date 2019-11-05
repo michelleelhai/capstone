@@ -1,5 +1,5 @@
 class Api::ConditionsController < ApplicationController
-  before_action :authenticate_admin, except: [:index, :show]
+  before_action :authenticate_user, except: [:index, :show]
    def show
     @condition = Condition.find_by(id: params[:id])
     render 'show.json.jb'
@@ -12,7 +12,8 @@ class Api::ConditionsController < ApplicationController
     @condition = Condition.create(
       name: params[:name],
       image_url: params[:image_url],
-      description: params[:description]
+      description: params[:description],
+      user_id: current_user.id
     )
     if @condition.save
       render 'show.json.jb'

@@ -1,1 +1,8 @@
-render partial: "user.json.jb", locals: {user: @user}
+user = render partial: "user.json.jb", locals: {user: @user}
+user[:products] = @user.products.map do |product|
+  render partial: "api/products/product", locals: {product: product}
+  end
+user[:conditions] = @user.conditions.map do |condition|
+  render partial: "api/conditions/condition", locals: {condition: condition}
+  end  
+user

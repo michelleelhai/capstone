@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get "/users" => "users#index"
     post "/users" => "users#create"
     post "/users/profile" => "users#update"
+    get "/users/:id" => "users#show"
     get "/products/:id" => "products#show"
     get "/products/" => "products#index"
     post "/products/" => "products#create"
