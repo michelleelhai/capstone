@@ -3,5 +3,10 @@ product = render partial: "product.json.jb", locals: {product: @product}
 product[:conditions] = @product.conditions.map do |condition|
   render partial: "api/conditions/condition", locals: {condition: condition}
   end
+  product[:comments] = @product.comments.map do |comment|
+  render partial: "api/comments/comment", locals: {comment: comment}
+  end
+  product[:upvotes] = @product.votes.where(value: 1).count
+  product[:downvotes] = @product.votes.where(value: -1).count
 
 product

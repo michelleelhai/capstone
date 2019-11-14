@@ -1,0 +1,2 @@
+@votes.map do |vote| render partial: "vote.json.jb", locals: {vote: vote}
+end
